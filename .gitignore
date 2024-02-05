@@ -1,0 +1,8 @@
+node_modules/
+uploads/
+venv/
+.idea
+__pycache__
+htr_pipeline.egg-info
+build
+.DS_Store
