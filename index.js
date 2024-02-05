@@ -6,7 +6,17 @@ const app = express();
 const port = 3000;
 
 // Middleware for handling multipart/form-data
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({
+    dest: 'uploads/',
+    limits: { fileSize: 10 * 1024 * 1024 }, // for example, 10 MB
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            cb(null, true);
+        } else {
+            cb(new Error('Unsupported file type'), false);
+        }
+    },
+});
 
 app.use(express.static('public')); // Serve static files from the public directory
 

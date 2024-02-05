@@ -1,3 +1,7 @@
 node_modules/
 uploads/
 venv/
+.idea
+__pycache__
+htr_pipeline.egg-info
+build
