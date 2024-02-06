@@ -1,9 +1,12 @@
 const express = require('express');
 const multer = require('multer');
+const cors = require('cors');
 const { spawn } = require('child_process'); // Import the child_process module
 
 const app = express();
 const port = 3000;
+
+app.use(cors()); // Enable CORS for all routes
 
 // Middleware for handling multipart/form-data
 const upload = multer({
@@ -41,28 +44,8 @@ app.post('/upload', upload.single('file'), (req, res) => {
     pythonProcess.on('close', code => {
         console.log(`Python script finished with code ${code}`);
         if (code === 0) {
-            // Now that the script is done, send the accumulated result
-            res.send(`
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Text Output</title>
-                    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-                </head>
-                <body>
-                    <div id="editor"></div>
-                    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-                    <script>
-                        var quill = new Quill('#editor', {
-                            theme: 'snow'
-                        });
-                        quill.setText(\`${result}\`);
-                    </script>
-                </body>
-                </html>
-            `);
+            // Now that the script is done, send the accumulated result as JSON
+            res.json({ text: result });
         } else {
             // Only send an error response if the script fails
             res.status(500).send('Error processing the image');
