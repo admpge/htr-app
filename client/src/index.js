@@ -1,7 +1,7 @@
-// In index.js or App.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './index.css';
 import App from './App';
 import EditorPage from './components/EditorPage';
 import Header from './components/Header';
