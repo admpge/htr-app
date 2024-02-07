@@ -8,18 +8,15 @@ const EditorPage = () => {
     const [text, setText] = useState('');
 
     useEffect(() => {
-        // Check if text was passed in the location state
         if (location.state?.text) {
             setText(location.state.text);
         }
-    }, [location]); // React to changes in location.state
+    }, [location]);
 
-    // Function to handle text change in the editor
     const handleTextChange = content => {
         setText(content);
     };
 
-    // Function to handle download of the text
     const handleDownload = () => {
         const element = document.createElement('a');
         const file = new Blob([text], { type: 'text/plain' });
@@ -30,14 +27,26 @@ const EditorPage = () => {
     };
 
     return (
-        <div>
-            <ReactQuill theme="snow" value={text} onChange={handleTextChange} />
-            <button
-                onClick={handleDownload}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-                Save
-            </button>
+        <div className="min-h-screen bg-gray-100">
+            <div className="container mx-auto py-12">
+                <div className="bg-white p-9 rounded-lg shadow-lg">
+                    <ReactQuill
+                        theme="snow"
+                        value={text}
+                        onChange={handleTextChange}
+                        className="mb-20"
+                        style={{ height: '300px' }}
+                    />
+                    <div className="flex justify-center">
+                        <button
+                            onClick={handleDownload}
+                            className="text-white font-bold py-2 px-4 rounded transition ease-in-out duration-150 w-48 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,4 +1,3 @@
-import { Button, Input } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,11 +5,12 @@ const UploadComponent = () => {
     const [file, setFile] = useState(null);
     const navigate = useNavigate();
 
-    const handleFileChange = event => {
+    const handleFileChange = (event) => {
         setFile(event.target.files[0]);
+        event.target.nextElementSibling.innerText = event.target.files[0].name;
     };
 
-    const handleSubmit = async event => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!file) {
@@ -41,17 +41,23 @@ const UploadComponent = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Input
-                type="file"
-                onChange={handleFileChange}
-                required
-                inputProps={{ accept: 'image/jpeg, image/png' }}
-            />
-            <Button type="submit" variant="contained" color="primary">
-                Upload
-            </Button>
-        </form>
+        <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+                <h1 className="text-2xl font-bold text-gray-900 mb-4">Handwritten Note Digitizer</h1>
+                <form onSubmit={handleSubmit} className="flex flex-col items-center">
+                    <label className="mb-2 text-gray-700" htmlFor="file-upload">
+                        <div className="cursor-pointer bg-blue-500 text-white rounded p-2 hover:bg-blue-600 transition duration-300 ease-in-out">
+                            Choose file
+                        </div>
+                    </label>
+                    <input id="file-upload" type="file" className="hidden" onChange={handleFileChange} required accept="image/jpeg, image/png" />
+                    <span id="file-name" className="text-gray-500 mt-1"></span>
+                    <button type="submit" className="mt-4 bg-blue-500 text-white rounded p-2 hover:bg-blue-600 transition duration-300 ease-in-out">
+                        UPLOAD
+                    </button>
+                </form>
+            </div>
+        </div>
     );
 };
 
