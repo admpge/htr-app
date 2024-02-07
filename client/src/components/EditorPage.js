@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import { useLocation } from 'react-router-dom';
 import 'react-quill/dist/quill.snow.css';
+import '../EditorStyles.css'; 
+
 
 const EditorPage = () => {
     const location = useLocation();
@@ -27,9 +29,9 @@ const EditorPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-800 text-white">
             <div className="container mx-auto py-12">
-                <div className="bg-white p-9 rounded-lg shadow-lg">
+                <div className="bg-gray-700 p-9 rounded-lg shadow-lg">
                     <ReactQuill
                         theme="snow"
                         value={text}
@@ -40,7 +42,7 @@ const EditorPage = () => {
                     <div className="flex justify-center">
                         <button
                             onClick={handleDownload}
-                            className="text-white font-bold py-2 px-4 rounded transition ease-in-out duration-150 w-48 bg-gradient-to-r from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600"
+                            className="text-white font-bold py-2 px-4 rounded transition ease-in-out duration-150 w-48 bg-gradient-to-r from-blue-700 to-green-700 hover:from-blue-800 hover:to-green-800"
                         >
                             Save
                         </button>

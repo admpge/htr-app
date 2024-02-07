@@ -1,0 +1,35 @@
+Editor container
+.ql-container {
+    border: none;
+    background-color: #282c34; /* Dark background for the editor */
+}
+
+/* Editor content */
+.ql-editor {
+    color: white; /* White text color for contrast */
+    min-height: 200px; /* Minimum height */
+}
+
+/* Toolbar styles */
+.ql-toolbar {
+    background-color: #3a3f4b; /* Dark background for the toolbar */
+    border: none;
+}
+
+.ql-snow .ql-stroke {
+    stroke: white; /* White color for icons */
+}
+
+.ql-snow .ql-fill {
+    fill: white; /* White color for icons */
+}
+
+.ql-snow .ql-picker-label:hover,
+.ql-snow .ql-picker-item:hover,
+.ql-snow .ql-picker-label.ql-active,
+.ql-snow .ql-picker-item.ql-selected,
+.ql-snow .ql-toolbar button:hover,
+.ql-snow .ql-toolbar button:focus,
+.ql-snow .ql-toolbar button.ql-active {
+    color: white;
+}
