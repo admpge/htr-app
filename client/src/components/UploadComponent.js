@@ -1,8 +1,10 @@
 import { Button, Input } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UploadComponent = ({ onUploadSuccess }) => {
     const [file, setFile] = useState(null);
+    const navigate = useNavigate();
 
     const handleFileChange = event => {
         setFile(event.target.files[0]);
@@ -29,7 +31,8 @@ const UploadComponent = ({ onUploadSuccess }) => {
                 const data = await response.json();
                 console.log('Upload successful', data.text);
                 // Call the function passed as prop to update the parent component's state
-                onUploadSuccess(data.text);
+                // onUploadSuccess(data.text);
+                navigate('/editor', { state: { text: data.text } });
             } else {
                 alert('Upload failed');
             }
