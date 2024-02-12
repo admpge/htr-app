@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 const UploadComponent = () => {
     const [file, setFile] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const [previewSrc, setPreviewSrc] = useState('');
     const navigate = useNavigate();
 
-    const handleFileChange = (event) => {
+    const handleFileChange = event => {
         const file = event.target.files[0];
         if (file) {
             setFile(file);
@@ -18,13 +19,15 @@ const UploadComponent = () => {
         }
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async event => {
         event.preventDefault();
 
         if (!file) {
             alert('Please select a file first!');
             return;
         }
+
+        setIsLoading(true);
 
         const formData = new FormData();
         formData.append('file', file);
@@ -45,30 +48,55 @@ const UploadComponent = () => {
         } catch (error) {
             console.error('Error:', error);
             alert('Error uploading the file');
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <div className="flex flex-col items-center justify-start h-screen bg-gray-800 p-4 pt-20">
-            <div className="bg-gray-700 text-white p-6 rounded-lg shadow-lg">
-                <h1 className="text-2xl font-bold mb-4">Handwritten Note Digitizer</h1>
+            <div className="bg-gray-200 text-black p-8 rounded-lg shadow-lg">
+                <h1 className="text-2xl font-bold mb-8">Handwritten Note Digitiser</h1>
                 <form onSubmit={handleSubmit} className="flex flex-col items-center">
-                    <label className="mb-2" htmlFor="file-upload">
-                        <div className="cursor-pointer bg-blue-700 text-white rounded p-2 hover:bg-blue-800 transition duration-300 ease-in-out">
-                            Choose file
-                        </div>
+                    <label
+                        htmlFor="file-upload"
+                        className="cursor-pointer bg-blue-700 text-white rounded p-2 hover:bg-blue-800 transition duration-300 ease-in-out mb-2"
+                    >
+                        Choose file
+                        <input
+                            id="file-upload"
+                            type="file"
+                            className="hidden"
+                            onChange={handleFileChange}
+                            required
+                            accept="image/jpeg, image/png"
+                        />
                     </label>
-                    <input id="file-upload" type="file" className="hidden" onChange={handleFileChange} required accept="image/jpeg, image/png" />
-                    <span id="file-name" className="text-gray-300 mt-1">{file ? file.name : 'No file chosen'}</span>
-                    <button type="submit" className="mt-4 bg-gradient-to-r from-blue-700 to-green-700 text-white rounded p-2 hover:bg-gradient-to-r hover:from-blue-800 hover:to-green-800 transition duration-300 ease-in-out">
-                        UPLOAD
-                    </button>
+                    <span id="file-name" className="text-gray-600 mt-1">
+                        {file ? file.name : 'No file chosen'}
+                    </span>
+                    {isLoading ? (
+                        <div className="flex justify-center items-center mt-4">
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                        </div>
+                    ) : (
+                        previewSrc && (
+                            <div className="mt-4 flex flex-col items-center">
+                                <img
+                                    src={previewSrc}
+                                    alt="Preview"
+                                    className="max-w-xs rounded-lg shadow-lg"
+                                />
+                                <button
+                                    type="submit"
+                                    className="mt-4 bg-blue-700 text-white rounded p-2 hover:bg-blue-800 transition duration-300 ease-in-out"
+                                >
+                                    Upload
+                                </button>
+                            </div>
+                        )
+                    )}
                 </form>
-                {previewSrc && (
-                    <div className="mt-4">
-                        <img src={previewSrc} alt="Preview" className="max-w-xs rounded-lg shadow-lg" />
-                    </div>
-                )}
             </div>
         </div>
     );
