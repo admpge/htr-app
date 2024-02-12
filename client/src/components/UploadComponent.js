@@ -56,7 +56,7 @@ const UploadComponent = () => {
     return (
         <div className="flex flex-col items-center justify-start h-screen bg-gray-800 p-4 pt-20">
             <div className="bg-gray-200 text-black p-8 rounded-lg shadow-lg">
-                <h1 className="text-2xl font-bold mb-8">Handwritten Note Digitiser</h1>
+                <h1 className="text-2xl font-bold mb-6">Handwritten Note Digitiser</h1>
                 <form onSubmit={handleSubmit} className="flex flex-col items-center">
                     <label
                         htmlFor="file-upload"
